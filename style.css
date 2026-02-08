@@ -152,6 +152,8 @@ nav {
     max-width: 500px;
     border-radius: 8px;
     object-fit: cover;
+    border-radius: 10%;
+
 }
 
 /* Seção Sobre */
@@ -362,25 +364,29 @@ nav {
     transform: translateY(0);
 }
 
-/* Responsividade */
+/* =====================
+   Responsividade Corrigida
+===================== */
 @media (max-width: 768px) {
+    /* 1. Ajuste do Menu Mobile (Gaveta Lateral) */
     .nav-links {
-        display: flex;          /* sempre flex */
+        display: flex;
         flex-direction: column;
-        position: absolute;
-        top: 70px;
-        right: -250px;          /* começa escondido */
+        position: fixed;       /* Fixado na tela para não des alinhar ao rolar */
+        top: 0;
+        right: -100%;          /* Esconde totalmente para fora da tela */
         background: #ffffff;
-        width: 200px;
-        padding: 20px;
-        gap: 15px;
-        border-radius: 4px;
-        transition: right 0.3s ease;
+        width: 250px;          /* Largura fixa para o menu */
+        height: 100vh;         /* Ocupa a altura total da tela */
+        padding: 80px 20px;    /* Espaço interno para não encostar no topo */
+        gap: 20px;
+        transition: right 0.4s ease-in-out;
         z-index: 999;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidade */
     }
 
     .nav-links.open {
-        right: 10px;            /* posição visível */
+        right: 0;              /* Desliza para dentro da tela */
     }
 
     .nav-links li {
@@ -390,23 +396,78 @@ nav {
     .nav-links li a {
         display: block;
         width: 100%;
-        padding: 10px 15px;
-        margin: 0;
-        text-align: center;
-        border-radius: 4px;
+        padding: 12px;
+        text-align: left;      /* Alinhamento à esquerda fica mais elegante em menus laterais */
         color: #1a2a44;
-        text-decoration: none;
-        font-weight: 600;
+        font-size: 1.1rem;
     }
 
-    .nav-links li a:hover,
-    .nav-links li a.active {
-        color: #1a2a44;
-    }
+    .btn-nav {
+        display: block;          /* Garante que ele se comporte como bloco */
+        width: 100%;             /* Faz ele ocupar a largura disponível do menu lateral */
+        margin-left: 0 !important; /* Remove margens esquerdas que podem estar empurrando ele */
+        text-align: center !important;
+        box-sizing: border-box;  /* Garante que o padding não aumente o tamanho final */
+}
 
+    /* 2. Botão do Menu (Hambúrguer) sempre visível sobre o menu */
     .mobile-menu {
         display: block;
         font-size: 1.8rem;
         cursor: pointer;
+        z-index: 1001;         /* Fica acima de tudo para poder fechar o menu */
     }
+
+    /* 3. Ajuste do Hero (Seção Inicial) */
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 40px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-img {
+        order: -1;             /* Foto aparece antes do texto no mobile */
+    }
+
+    /* 4. Ajuste do Formulário (Onde estava quebrando) */
+    .contact-grid {
+        grid-template-columns: 1fr; /* Força uma coluna única */
+        padding: 0 15px;
+    }
+
+    .contact-form {
+        width: 100%;
+    }
+
+    .contact-form input, 
+    .contact-form textarea {
+        width: 100%;           /* Garante que campos não vazem */
+        font-size: 16px;       /* Evita zoom automático em iPhones */
+    }
+
+    .btn-primary {
+        width: 100%;           /* Botão ocupa a largura toda no celular */
+    }
+
+    /* 5. Ajuste da Seção Sobre e Stats */
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats {
+        flex-direction: row;
+        justify-content: space-around;
+        border-top: 1px solid #eee;
+        padding-top: 30px;
+    }
+}
+
+/* Previne o scroll horizontal indesejado no site todo */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
 }

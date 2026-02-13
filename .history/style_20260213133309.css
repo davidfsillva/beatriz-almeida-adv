@@ -431,7 +431,7 @@ nav {
 
     .hero-img {
         order: -1;             /* Foto aparece antes do texto no mobile */
-        margin-top: -80px; /* sobe a imagem */
+        margin-top: -50px; /* sobe a imagem */
 
     }
 
